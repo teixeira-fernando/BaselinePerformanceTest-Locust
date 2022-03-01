@@ -29,4 +29,4 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
       - name: Start performance tests
-        run: docker-compose up --scale worker=${workers} --force-recreate --exit-code-from=master
+        run: docker-compose up --scale worker=4 --force-recreate --exit-code-from=master
