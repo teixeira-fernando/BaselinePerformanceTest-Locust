@@ -16,7 +16,7 @@ on:
       workers:
         description: 'Number of worker nodes to be used in performance tests'     
         required: true
-        default: '4'
+        default: ${{ 4 }}
       locustfile:
         description: 'Define the locust performance test file name to be executed'     
         required: true
