@@ -12,6 +12,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      workers:
+        description: 'Number of worker nodes to be used in performance tests'     
+        required: true
+        default: 4
+      locustfile:
+        description: 'Define the locust performance test file name to be executed'     
+        required: true
+        default: 'dragons_info_load_test.py'     
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     #env variables
     env:
-      workers: 4
+      LOCUST_LOCUSTFILE: ${{ github.event.inputs.locustfile }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -32,3 +41,11 @@ jobs:
         run: echo Hello, world!
       - name: Start performance tests
         run: docker-compose up --scale worker=${workers} --force-recreate --exit-code-from=master
+      - name: export test report
+        run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
+      - name: export artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: locust-report
+          path: report.html
+
