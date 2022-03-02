@@ -16,7 +16,7 @@ on:
       workers:
         description: 'Number of worker nodes to be used in performance tests'     
         required: true
-        default: 4
+        default: '4'
       locustfile:
         description: 'Define the locust performance test file name to be executed'     
         required: true
@@ -40,7 +40,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
       - name: Start performance tests
-        run: docker-compose up --scale worker=${{ github.event.inputs.workers }} --force-recreate --exit-code-from=master
+        run: docker-compose up --scale worker=${{ github.event.inputs.workers }} --force-recreate 
       - name: export test report
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
       - name: export artifact
