@@ -36,8 +36,6 @@ jobs:
       - uses: AutoModality/action-clean@v1
         if: ${{ always() }} # To ensure this step runs even when earlier steps fail
       - uses: actions/checkout@v2
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
 
       - name: Start performance tests
         run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
