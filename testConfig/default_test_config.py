@@ -8,7 +8,7 @@ DEFAULT_RAMP = {
 DEFAULT_KPIS = {
     "requests_per_second": 0.5,
     "fail_ratio_allowed": 0.01,
-    "response_time_percentile_90_milliseconds": 1000,
-    "response_time_percentile_95_milliseconds": 1500,
-    "response_time_percentile_99_milliseconds": 2000
+    "response_time_percentile_90_milliseconds": 400,
+    "response_time_percentile_95_milliseconds": 800,
+    "response_time_percentile_99_milliseconds": 1200
 }
