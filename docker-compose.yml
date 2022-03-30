@@ -6,11 +6,11 @@ services:
     ports:
      - "8089:8089"
     volumes:
-      - ./:/mnt/locust
-    command: "-f /mnt/locust/${LOCUST_LOCUSTFILE} --master --host=${HOST} --headless --html=report.html"
+      - ./:${pwd}/mnt/locust
+    command: "-f ${pwd}/mnt/locust/${LOCUST_LOCUSTFILE} --master --host=${HOST} --headless --html=report.html"
   
   worker:
     build: .
     volumes:
-      - ./:/mnt/locust
-    command: -f /mnt/locust/${LOCUST_LOCUSTFILE} --worker --master-host master --host=${HOST}
+      - ./:${pwd}/mnt/locust
+    command: -f ${pwd}/mnt/locust/${LOCUST_LOCUSTFILE} --worker --master-host master --host=${HOST}

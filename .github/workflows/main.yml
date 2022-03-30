@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Start performance tests
-        run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
+        run: docker-compose up --scale worker=${WORKERS} --exit-code-from=master
       - name: export test report
         if: always()
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
