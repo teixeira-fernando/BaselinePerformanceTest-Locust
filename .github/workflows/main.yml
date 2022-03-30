@@ -18,8 +18,7 @@ on:
         required: true
       locustfile:
         description: 'Define the locust performance test file name to be executed'     
-        required: true
-        default: 'dragons_info_load_test.py'     
+        required: true   
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     #env variables
     env:
-      LOCUST_LOCUSTFILE: dragons_info_load_test.py
+      LOCUST_LOCUSTFILE: ${{ github.event.inputs.workers || 'dragons_info_load_test.py' }}
       WORKERS: ${{ github.event.inputs.workers || 4 }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,6 +38,8 @@ jobs:
 
       - name: Start performance tests
         run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
+      - name: Print all the execution logs  
+        run: docker-compose logs -f master
       - name: export test report
         if: always()
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
