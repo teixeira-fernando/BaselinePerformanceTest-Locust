@@ -29,20 +29,21 @@ jobs:
     runs-on: ubuntu-latest
     #env variables
     env:
-      LOCUST_LOCUSTFILE: ${{ github.event.inputs.locustfile }}
+      LOCUST_LOCUSTFILE: dragons_info_load_test.py
       WORKERS: ${{ github.event.inputs.workers || 4 }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: AutoModality/action-clean@v1
+        if: ${{ always() }} # To ensure this step runs even when earlier steps fail
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
       - name: Start performance tests
-        run: docker-compose up --scale worker=${WORKERS} --force-recreate 
+        run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
       - name: export test report
+        if: always()
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
       - name: export artifact
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: locust-report
