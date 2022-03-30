@@ -40,6 +40,7 @@ jobs:
         run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
       - name: Print all the execution logs  
         run: docker-compose logs -f master
+        if: always()
       - name: export test report
         if: always()
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
