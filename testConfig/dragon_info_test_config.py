@@ -6,7 +6,7 @@ DRAGON_INFO_RAMP = {
     "max_users": 10
 }
 DRAGON_INFO_KPIS = {
-    "requests_per_second": 0.5,
+    "requests_per_second": 0.1,
     "fail_ratio_allowed": 0.01,
     "response_time_percentile_90_milliseconds": 1000,
     "response_time_percentile_95_milliseconds": 1500,
