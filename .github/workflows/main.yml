@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     #env variables
     env:
-      LOCUST_LOCUSTFILE: ${{ github.event.inputs.workers || 'dragons_info_load_test.py' }}
+      LOCUST_LOCUSTFILE: ${{ github.event.inputs.locustfile || 'dragons_info_load_test.py' }}
       WORKERS: ${{ github.event.inputs.workers || 4 }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
