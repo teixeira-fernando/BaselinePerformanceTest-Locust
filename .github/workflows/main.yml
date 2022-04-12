@@ -51,10 +51,9 @@ jobs:
           name: locust-report
           path: /report/report.html
       - name: Publish test report
-        if: github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          access_token: ${{ secrets.ACTIONS_SECRET }}
-          branch: gh-pages
-          folder: report
+          github_token: ${{ secrets.ACTIONS_SECRET }}
+          publish_dir: ./report
 
