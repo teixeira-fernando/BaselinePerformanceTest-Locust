@@ -43,11 +43,18 @@ jobs:
         if: always()
       - name: export test report
         if: always()
-        run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
+        run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html ./report
       - name: export artifact
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: locust-report
-          path: report.html
+          path: /report/report.html
+      - name: Publish test report
+        if: github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          access_token: ${{ secrets.ACTIONS_SECRET }}
+          branch: gh-pages
+          folder: report
 
