@@ -44,13 +44,13 @@ jobs:
       - name: export test report
         if: always()
         run: |
-          mkdir report && docker cp baselineperformancetest-locust_master_1:./home/locust/report.html ./report/report.html
+          mkdir report && ls && docker cp baselineperformancetest-locust_master_1:./home/locust/report.html ./report/report.html 
       - name: export artifact
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: locust-report
-          path: /**/report.html
+          path: /report/**/*.html
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
