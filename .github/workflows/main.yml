@@ -44,7 +44,7 @@ jobs:
       - name: export test report
         if: always()
         run: |
-          mkdir report && docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
+          mkdir report && docker cp baselineperformancetest-locust_master_1:./home/locust/report.html ./report/report.html
       - name: export artifact
         if: always()
         uses: actions/upload-artifact@v3
