@@ -10,6 +10,12 @@ You can run distributed tests with docker-compose and easily scale more workers:
 2. Run `docker-compose up --scale worker=4` with as many workers as you want
 3. After your test, run `docker-compose down` or just press `Ctrl + C` if you are running the docker-compose in interactive mode
 
+## Running directly using Github Actions
+
+Using Github Actions, it is possible to run the performance tests directly from the repository. The pipeline is configured to receive some parameters, including selection of test script and number of workers, what makes it flexible for different test runs.
+
+![alt text](images/run-workflow.png "Run workflow - input parameters")
+
 ## Project Structure
 * `__init__.py`: Here we have the setup and teardown for our tests. You can insert here anything that needs to be executed at the beginning and at the end of the test execution
 * `.env`: This is the general config file. You can specify some parameter values like host, locust file, etc.
@@ -17,8 +23,8 @@ You can run distributed tests with docker-compose and easily scale more workers:
 * `testConfig/*.py`: This folder contains the ramp and KPI configs for each specific performance test
 * `common/*.py`: Here we have shared functions and values that are applied in multiple test files
 * `kpi_checker.py`: This file contains auxiliary methods necessary for the automated KPI validation
-* `*load_test.py`: These are our performance test files. They include our requests and other additional information
-* `*load_test_custom_shape.py`: This is the custom ramp configuration, that is imported and used by the different load tests
+* `load_test.py`: These are our performance test files. They include our requests and other additional information
+* `load_test_custom_shape.py`: This is the custom ramp configuration, that is imported and used by the different load tests
 
 ## RPS checks
 We are using a config that enable us to provide a few KPIs goals for a tests excution through environment variables. Right now, we have the possibility to use 5 KPIs:
@@ -43,3 +49,9 @@ master_1  | [2021-10-07 21:35:01,010] dc53ec78188f/INFO/locust.main: Shutting do
 If necessary, it is possible to also add more KPIs to be validated. We just need to get it from the metrics that locust provide us: [Locust_stats](https://github.com/locustio/locust/blob/master/locust/stats.py)
 
 The KPIs validation is possible due to a locust plugin. You can get more info about that in this link: [Locust_plugins](https://github.com/SvenskaSpel/locust-plugins/blob/master/locust_plugins/__init__.py)
+
+## Test Report
+
+The test report is automatically generated after every test run. When running from Github Actions, it will be present in the archived artifacts.
+
+![alt text](images/locust-report.png "Locust Report automatically generated")
