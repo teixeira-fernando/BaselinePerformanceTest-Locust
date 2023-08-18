@@ -1,8 +1,9 @@
 from locust import task, constant
 from locust.contrib.fasthttp import FastHttpUser
 from data.dragons_info import query_dragons_info
-from load_test_custom_shape import MyCustomShape
-from common.commons import processResponse
+from common.load_test_custom_shape import MyCustomShape
+from common.commons import processResponse, setRampConfig, setKPIConfig
+from testConfig.dragon_info_test_config import DRAGON_INFO_KPIS, DRAGON_INFO_RAMP
 import os
 import gevent
 import __init__
@@ -10,6 +11,8 @@ import __init__
 class DragonsInfoUser(FastHttpUser):
     wait_time = constant(10)
     basePath = "/"
+    setRampConfig(DRAGON_INFO_RAMP)
+    setKPIConfig(DRAGON_INFO_KPIS)
     def on_start(self):
         host = str(self.host)
         return super().on_start()        

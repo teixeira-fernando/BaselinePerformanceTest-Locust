@@ -1,16 +1,17 @@
 from locust import task, constant, between, LoadTestShape
-from common.commons import readRampConfig
 import os
 from dotenv import load_dotenv
+
+
 #This shape class will increase user_count in blocks of spawn_rate rampEveryXseconds and then stop the load test after the time_limit
 class MyCustomShape(LoadTestShape):
-    load_dotenv(override=True)  # take environment variables from .env.
-    ramp_config = readRampConfig(os.environ.get("LOCUST_LOCUSTFILE"))
-    time_limit_in_seconds = ramp_config.get('time_limit_in_seconds') 
-    spawn_rate = ramp_config.get('spawn_rate') 
-    ramp_every_X_seconds = ramp_config.get('ramp_every_X_seconds')
-    initial_users = ramp_config.get('initial_users')
-    max_users = ramp_config.get('max_users')
+
+    def __init__(self):
+        self.time_limit_in_seconds = int(os.environ.get("TIME_LIMIT_IN_SECONDS"))
+        self.spawn_rate = int(os.environ.get("SPAWN_RATE"))
+        self.ramp_every_X_seconds = int(os.environ.get("RAMP_EVERY_X_SECONDS"))  
+        self.initial_users = int(os.environ.get("INITIAL_USERS"))
+        self.max_users = int(os.environ.get("MAX_USERS"))
 
     def tick(self):
         run_time = self.get_run_time()
