@@ -1,9 +1,7 @@
 from distutils.command.config import config
 import json
-from testConfig.default_test_config import DEFAULT_RAMP, DEFAULT_KPIS
-from testConfig.dragon_info_test_config import DRAGON_INFO_RAMP, DRAGON_INFO_KPIS
-from testConfig.previous_launches_test_config import PREVIOUS_LAUNCHES_INFO_RAMP, PREVIOUS_LAUNCHES_INFO_KPIS
-
+import logging
+import os
 
 ERROR_CODE = 3
 
@@ -11,6 +9,7 @@ def processResponse(response):
     if (response.status_code == 200 and "errors" in response.json()): #since it is graphql, the responses can occur with a 200 code
         response.failure("We received a response with code "+str(response.status_code)+" and the errors: "+json.dumps(response.json()))    
     elif (response.status_code == 200):
+        logging.info('Response: '+json.dumps(response.json()))
         response.success()
 
 def validateTestRunResult(exit_code):
@@ -19,19 +18,17 @@ def validateTestRunResult(exit_code):
     else:
        return "Success"
 
-def readRampConfig(ramp_config):
-    if('dragon' in str(ramp_config).lower()):
-        return DRAGON_INFO_RAMP
-    if('previous_launches' in str(ramp_config).lower()):
-        return PREVIOUS_LAUNCHES_INFO_RAMP
-    else:
-        return DEFAULT_RAMP
+def setRampConfig(ramp_config):
+    os.environ["TIME_LIMIT_IN_SECONDS"] = str(ramp_config.get('TIME_LIMIT_IN_SECONDS')) 
+    os.environ["SPAWN_RATE"] = str(ramp_config.get('SPAWN_RATE'))
+    os.environ["RAMP_EVERY_X_SECONDS"] = str(ramp_config.get('RAMP_EVERY_X_SECONDS'))
+    os.environ["INITIAL_USERS"] = str(ramp_config.get('INITIAL_USERS')) 
+    os.environ["MAX_USERS"] = str(ramp_config.get('MAX_USERS')) 
 
-def readKPIsConfig(ramp_config):
-    if('dragon' in str(ramp_config).lower()):
-        return DRAGON_INFO_KPIS
-    if('previous_launches' in str(ramp_config).lower()):
-        return PREVIOUS_LAUNCHES_INFO_KPIS
-    else:
-        return DEFAULT_KPIS
+def setKPIConfig(kpi_config):
+    os.environ["REQUESTS_PER_SECOND"] = str(kpi_config.get('REQUESTS_PER_SECOND')) 
+    os.environ["FAIL_RATIO_ALLOWED"] = str(kpi_config.get('FAIL_RATIO_ALLOWED'))
+    os.environ["RESPONSE_TIME_PERCENTILE_90_MILLISECONDS"] = str(kpi_config.get('RESPONSE_TIME_PERCENTILE_90_MILLISECONDS'))
+    os.environ["RESPONSE_TIME_PERCENTILE_95_MILLISECONDS"] = str(kpi_config.get('RESPONSE_TIME_PERCENTILE_95_MILLISECONDS')) 
+    os.environ["RESPONSE_TIME_PERCENTILE_99_MILLISECONDS"] = str(kpi_config.get('RESPONSE_TIME_PERCENTILE_99_MILLISECONDS')) 
         
