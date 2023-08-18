@@ -1,7 +1,10 @@
 from locust import task, constant, between, LoadTestShape
-from common.commons import readRampConfig
+from commons import readRampConfig
+from kpi_checker import validate_metric_goal
 import os
 from dotenv import load_dotenv
+
+
 #This shape class will increase user_count in blocks of spawn_rate rampEveryXseconds and then stop the load test after the time_limit
 class MyCustomShape(LoadTestShape):
     load_dotenv(override=True)  # take environment variables from .env.

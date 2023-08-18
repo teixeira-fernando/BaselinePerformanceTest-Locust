@@ -1,7 +1,7 @@
 from locust import task, constant
 from locust.contrib.fasthttp import FastHttpUser
 from data.dragons_info import query_dragons_info
-from load_test_custom_shape import MyCustomShape
+from common.load_test_custom_shape import MyCustomShape
 from common.commons import processResponse
 import os
 import gevent
