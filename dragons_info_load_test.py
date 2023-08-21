@@ -14,7 +14,6 @@ class DragonsInfoUser(FastHttpUser):
     setRampConfig(DRAGON_INFO_RAMP)
     setKPIConfig(DRAGON_INFO_KPIS)
     def on_start(self):
-        host = str(self.host)
         return super().on_start()        
     
     def get_dragons_info(self):
