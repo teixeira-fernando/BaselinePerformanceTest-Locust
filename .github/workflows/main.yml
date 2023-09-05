@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: AutoModality/action-clean@v1
         if: ${{ always() }} # To ensure this step runs even when earlier steps fail
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Start performance tests
         run: docker-compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
