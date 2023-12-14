@@ -48,7 +48,7 @@ jobs:
         run: docker cp baselineperformancetest-locust_master_1:./home/locust/report.html .
       - name: export artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: locust-report
           path: report.html
