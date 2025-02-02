@@ -9,7 +9,7 @@ services:
       - LOCUST_LOCUSTFILE
     volumes:
       - ./:/mnt/locust
-    command: "-f /mnt/locust/${LOCUST_LOCUSTFILE} --master --host=${HOST} --headless --html=report.html"
+    command: "-f /mnt/locust/${LOCUST_LOCUSTFILE} --master --host=${HOST} --class-picker --html=report.html"
   
   worker:
     build: .
