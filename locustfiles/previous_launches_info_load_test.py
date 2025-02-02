@@ -1,7 +1,6 @@
 from locust import task, constant
 from locust.contrib.fasthttp import FastHttpUser
 from data.previous_launches_info import query_previous_launches_info
-from common.load_test_custom_shape import MyCustomShape
 from common.commons import processResponse, setRampConfig, setKPIConfig
 from testConfig.previous_launches_test_config import PREVIOUS_LAUNCHES_INFO_KPIS, PREVIOUS_LAUNCHES_INFO_RAMP
 import os
