@@ -26,11 +26,12 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   performance-tests:
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_AUTOMATED_LOAD_TESTS == 'true'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     #env variables
     env:
-      LOCUST_LOCUSTFILE: ${{ github.event.inputs.locustfile || 'dragons_info_load_test.py' }}
+      LOCUST_LOCUSTFILE: ${{ github.event.inputs.locustfile || 'country_info_load_test.py' }}
       WORKERS: ${{ github.event.inputs.workers || 4 }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
