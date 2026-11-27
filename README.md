@@ -1,14 +1,14 @@
-# Baseline Performance Tests with Locust, Docker-compose and Github-Actions
+# Baseline Performance Tests with Locust, Docker Compose and Github-Actions
 Locust is a python based load testing framework. Documentation can be found here: [Documentation](https://docs.locust.io/en/stable/index.html)
 
 ## Installation
-Since we are working with a docker-compose setup, you just need to have docker installed in your machine. 
+Since we are working with a Docker Compose setup, you just need to have Docker with the Compose plugin installed on your machine.
 
-## Run distributed tests in headless mode - docker-compose
-You can run distributed tests with docker-compose and easily scale more workers: [Distributed tests](https://docs.locust.io/en/stable/running-locust-docker.html)
+## Run distributed tests in headless mode - Docker Compose
+You can run distributed tests with Docker Compose and easily scale more workers: [Distributed tests](https://docs.locust.io/en/stable/running-locust-docker.html)
 1. Check if the .env file contains the correct configuration for your test run
-2. Run `docker-compose up --scale worker=4` with as many workers as you want
-3. After your test, run `docker-compose down` or just press `Ctrl + C` if you are running the docker-compose in interactive mode
+2. Run `docker compose up --scale worker=4` with as many workers as you want
+3. After your test, run `docker compose down` or just press `Ctrl + C` if you are running Docker Compose in interactive mode
 
 ## Running directly using Github Actions
 
@@ -34,7 +34,7 @@ We are using a config that enable us to provide a few KPIs goals for a tests exc
 * 95% response time percentile
 * 99% response time percentile
 
-The values are passed to locust through command line. Since we are using docker-compose setup, you can check and edit the KPI goals using the .env file.
+The values are passed to locust through command line. Since we are using Docker Compose setup, you can check and edit the KPI goals using the .env file.
 
 When the results don't achieve the KPI goals, we have messages returned in the terminal and a different exit code (code 3) of the script, that can be used to integrate with other tools, like for example Jenkins:
 
