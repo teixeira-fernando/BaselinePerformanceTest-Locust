@@ -1,4 +1,3 @@
-from distutils.command.config import config
 import json
 import logging
 import os

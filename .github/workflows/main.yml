@@ -39,9 +39,11 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Start performance tests
-        run: docker compose up --scale worker=${WORKERS} --force-recreate --exit-code-from=master
+        run: |
+          docker compose up -d --scale worker=${WORKERS} --force-recreate
+          exit "$(docker wait "$(docker compose ps -aq master)")"
       - name: Print all the execution logs  
-        run: docker compose logs -f master
+        run: docker compose logs master
         if: always()
       - name: export test report
         if: always()
