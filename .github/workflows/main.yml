@@ -26,7 +26,6 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   performance-tests:
-    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_AUTOMATED_LOAD_TESTS == 'true'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     #env variables

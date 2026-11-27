@@ -27,7 +27,7 @@ docker compose run --rm -w /mnt/locust --entrypoint python master -m unittest di
 
 Using Github Actions, it is possible to run the performance tests directly from the repository. The pipeline is configured to receive some parameters, including selection of test script and number of workers, what makes it flexible for different test runs.
 
-Manual runs use the selected scenario and worker count. Push, pull-request and scheduled runs are skipped by default; set the repository variable `ENABLE_AUTOMATED_LOAD_TESTS` to `true` to opt in after ensuring the target permits automated load testing. Automated runs use `country_info_load_test.py` and four workers.
+Manual runs use the selected scenario and worker count. Push, pull-request and scheduled runs use `country_info_load_test.py` and four workers.
 
 ![alt text](images/run-workflow.png "Run workflow - input parameters")
 
